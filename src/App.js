@@ -14,7 +14,7 @@ export default function App() {
             <Members />
           </Route>
           <Route path="/">
-            <h1>hallo 2</h1>
+            <Members />
           </Route>
         </Switch>
       </Container>
