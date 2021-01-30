@@ -14,7 +14,6 @@ The frontend is hosted at [GitHub Pages](https://foorschtbar.github.io/spa-crud-
 - [Dialog](https://material-ui.com/components/dialogs/) to confirm delete
 - Move Add/Update to a Dialog
 - [Sort Table](https://material-ui.com/components/tables/#sorting-amp-selecting)
-- Search
 
 ## Usage
 

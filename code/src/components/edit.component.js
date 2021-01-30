@@ -11,6 +11,7 @@ export default class Edit extends Component {
 
     constructor(props) {
         super(props);
+        this.props.onNavbarTitleChange("Edit member");
         this.handleChange = this.handleChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.state = {
@@ -29,6 +30,7 @@ export default class Edit extends Component {
                 email: ''
             }
         }
+        console.log(props);
     }
 
     handleChange(e) {

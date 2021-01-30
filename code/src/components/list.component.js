@@ -9,6 +9,9 @@ import Paper from '@material-ui/core/Paper';
 import LinearProgress from '@material-ui/core/LinearProgress';
 //import { Button, Typography } from '@material-ui/core';
 import MyTableRow from './tablerow.component';
+//import CustomizedDialogs from './dialog.component';
+//import Button from '@material-ui/core/Button';
+
 import http from "../http-common";
 
 export default class List extends Component {
@@ -17,20 +20,28 @@ export default class List extends Component {
         super(props);
         this.state = {
             isLoading: true,
-            members: []
+            members: [],
+            searchTerm: ""
         };
+        this.props.onNavbarTitleChange("All members");
     }
 
     simplifiedFunction(value) {
         console.log(value);
     }
 
-    getData = () => {
+    getData = (search) => {
         this.setState({
             members: [],
             isLoading: true
         });
-        http.get('/members')
+
+        var searchTerm = "";
+        if (this.state.searchTerm) {
+            searchTerm = "/" + this.state.searchTerm
+        }
+
+        http.get('/members' + searchTerm)
             .then(response => {
                 this.setState({
                     members: response.data,
@@ -41,6 +52,15 @@ export default class List extends Component {
             .catch(function (error) {
                 console.log(error);
             })
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.search !== this.props.search) {
+            this.setState({
+                searchTerm: this.props.search
+            });
+            this.getData();
+        }
     }
 
     componentDidMount() {
@@ -73,6 +93,7 @@ export default class List extends Component {
                     </Table>
                 </TableContainer>
                 {this.state.isLoading && <LinearProgress />}
+
             </div>
         );
     }

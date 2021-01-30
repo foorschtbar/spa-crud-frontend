@@ -10,6 +10,7 @@ export default class Create extends Component {
 
     constructor(props) {
         super(props);
+        this.props.onNavbarTitleChange("Create member");
         this.handleChange = this.handleChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.state = {

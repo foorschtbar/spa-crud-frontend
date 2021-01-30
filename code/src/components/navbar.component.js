@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function Navbar() {
+export default function Navbar(props) {
     const classes = useStyles();
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -108,7 +108,7 @@ export default function Navbar() {
                         </Menu>
                     </div>
                     <Typography variant="h6" className={classes.title}>
-                        SPA-CRUD Demo Application
+                        {props.navbartitle}
                     </Typography>
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
@@ -121,6 +121,8 @@ export default function Navbar() {
                                 input: classes.inputInput,
                             }}
                             inputProps={{ 'aria-label': 'search' }}
+                            onChange={props.handleSearch}
+                            value={props.search}
                         />
                     </div>
                 </Toolbar>

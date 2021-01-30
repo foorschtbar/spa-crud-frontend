@@ -25,6 +25,7 @@ class MyTableRow extends Component {
             .catch(err => console.log(err))
 
     }
+
     render() {
         return (
             <TableRow key={this.props.obj.id} >
