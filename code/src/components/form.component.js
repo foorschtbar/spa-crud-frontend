@@ -7,18 +7,18 @@ import Alert from '@material-ui/lab/Alert';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import http from "../http-common";
 
-export default class Edit extends Component {
+export default class Form extends Component {
 
     constructor(props) {
         super(props);
-        this.props.onNavbarTitleChange("Edit member");
         this.handleChange = this.handleChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.state = {
             message: '',
             error: false,
             isLoading: true,
-            success: false,
+            disabled: false,
+            url: '',
             errorfields: [],
             form: {
                 firstname: '',
@@ -30,7 +30,36 @@ export default class Edit extends Component {
                 email: ''
             }
         }
-        console.log(props);
+
+        switch (this.props.formmode) {
+            case "edit":
+                this.props.onNavbarTitleChange("Edit member");
+                this.state = {
+                    ...this.state,
+                    button: "Update",
+                    url: '/' + this.props.match.params.id,
+                    isLoading: true
+                }
+                break;
+            case "create":
+                this.props.onNavbarTitleChange("Create member");
+                this.state = {
+                    ...this.state,
+                    button: "Create"
+                }
+                break;
+            default:
+            case "view":
+                this.props.onNavbarTitleChange("View member");
+                this.state = {
+                    ...this.state,
+                    button: false,
+                    url: '/' + this.props.match.params.id,
+                    disabled: true,
+                    isLoading: true
+                }
+                break;
+        }
     }
 
     handleChange(e) {
@@ -43,16 +72,21 @@ export default class Edit extends Component {
     }
 
     componentDidMount() {
-        http.get('/member/' + this.props.match.params.id)
-            .then(response => {
-                this.setState({
-                    isLoading: false,
-                    form: response.data
-                });
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
+        if (this.state.url !== '') {
+            http.get('/member' + this.state.url)
+                .then(response => {
+                    this.setState({
+                        form: response.data,
+                        isLoading: false
+                    });
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    this.setState({
+                        isLoading: false
+                    });
+                })
+        }
     }
 
     onSubmit(e) {
@@ -64,7 +98,7 @@ export default class Edit extends Component {
                 this.setState({
                     error: false,
                     message: "Done!",
-                    success: true
+                    disabled: true
                 })
 
                 setTimeout(() => this.props.history.push('/'), 1000);
@@ -102,8 +136,8 @@ export default class Edit extends Component {
     render() {
         return (
             <div>
-                {this.state.isLoading && <LinearProgress />}
-                { this.state.message && <><Alert severity={this.state.error ? "error" : this.state.success ? "success" : "info"} >{this.state.message}</Alert><br /></>}
+                { this.state.isLoading && <LinearProgress />}
+                { this.state.message && <><Alert severity={this.state.error ? "error" : this.state.disabled ? "success" : "info"} >{this.state.message}</Alert><br /></>}
                 <form noValidate autoComplete="off" onSubmit={this.onSubmit}>
                     <FormControl>
                         <Box margin={1}>
@@ -113,7 +147,7 @@ export default class Edit extends Component {
                                 label="Firstname"
                                 shrink="true"
                                 required
-                                disabled={this.state.success || this.state.isLoading}
+                                disabled={this.state.disabled || this.state.isLoading}
                                 error={this.state.errorfields.includes('firstname')}
                                 value={this.state.form.firstname}
                                 //autoFocus={true}
@@ -127,7 +161,7 @@ export default class Edit extends Component {
                                 label="Lastname"
                                 shrink="true"
                                 required
-                                disabled={this.state.success || this.state.isLoading}
+                                disabled={this.state.disabled || this.state.isLoading}
                                 error={this.state.errorfields.includes('lastname')}
                                 value={this.state.form.lastname}
                                 onChange={this.handleChange}
@@ -138,10 +172,12 @@ export default class Edit extends Component {
                                 id="birthday"
                                 variant="outlined"
                                 label="Birthday"
-                                shrink="true"
-                                //type="date"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                type="date"
                                 required
-                                disabled={this.state.success || this.state.isLoading}
+                                disabled={this.state.disabled || this.state.isLoading}
                                 error={this.state.errorfields.includes('birthday')}
                                 value={this.state.form.birthday}
                                 onChange={this.handleChange}
@@ -154,7 +190,7 @@ export default class Edit extends Component {
                                 label="Street"
                                 shrink="true"
                                 required
-                                disabled={this.state.success || this.state.isLoading}
+                                disabled={this.state.disabled || this.state.isLoading}
                                 error={this.state.errorfields.includes('street')}
                                 value={this.state.form.street}
                                 onChange={this.handleChange} />
@@ -166,7 +202,7 @@ export default class Edit extends Component {
                                 label="City"
                                 shrink="true"
                                 required
-                                disabled={this.state.success || this.state.isLoading}
+                                disabled={this.state.disabled || this.state.isLoading}
                                 error={this.state.errorfields.includes('city')}
                                 value={this.state.form.city}
                                 onChange={this.handleChange} />
@@ -177,7 +213,7 @@ export default class Edit extends Component {
                                 variant="outlined"
                                 label="Phone"
                                 shrink="true"
-                                disabled={this.state.success || this.state.isLoading} error={this.state.errorfields.includes('phone')}
+                                disabled={this.state.disabled || this.state.isLoading} error={this.state.errorfields.includes('phone')}
                                 value={this.state.form.phone}
                                 onChange={this.handleChange} />
                         </Box>
@@ -187,14 +223,15 @@ export default class Edit extends Component {
                                 variant="outlined"
                                 label="eMail"
                                 shrink="true"
-                                disabled={this.state.success || this.state.isLoading}
+                                disabled={this.state.disabled || this.state.isLoading}
                                 error={this.state.errorfields.includes('email')}
                                 value={this.state.form.email}
                                 type="email" onChange={this.handleChange} />
                         </Box>
-                        <Button type="submit" variant="contained" disabled={this.state.success || this.state.isLoading} color="primary">
-                            Update
-                    </Button>
+                        {this.state.button &&
+                            <Button type="submit" variant="contained" disabled={this.state.disabled || this.state.isLoading} color="primary">
+                                {this.state.button}
+                            </Button>}
                     </FormControl>
                 </form>
             </div >

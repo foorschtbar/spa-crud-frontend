@@ -3,10 +3,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 
 import Navbar from './components/navbar.component';
-import Create from './components/create.component';
-import Edit from './components/edit.component';
 import List from './components/list.component';
-import View from './components/view.component';
+import Form from './components/form.component';
 
 class App extends Component {
 
@@ -41,12 +39,18 @@ class App extends Component {
           />
           <br />
           <Switch>
-            <Route path='/view/:id' render={(props) => <View
-              onNavbarTitleChange={this.handleNavbarTitleChange} {...props} />} />
-            <Route exact path='/create' render={() => <Create
-              onNavbarTitleChange={this.handleNavbarTitleChange} />} />
-            <Route path='/edit/:id' render={(props) => <Edit
-              onNavbarTitleChange={this.handleNavbarTitleChange} {...props} />} />
+            <Route path='/view/:id' render={(props) => <Form
+              formmode="view"
+              onNavbarTitleChange={this.handleNavbarTitleChange}
+              {...props} />} />
+            <Route exact path='/create' render={(props) => <Form
+              formmode="create"
+              onNavbarTitleChange={this.handleNavbarTitleChange}
+              {...props} />} />
+            <Route path='/edit/:id' render={(props) => <Form
+              formmode="edit"
+              onNavbarTitleChange={this.handleNavbarTitleChange}
+              {...props} />} />
             <Route path='/' render={() => <List
               search={this.state.search}
               onNavbarTitleChange={this.handleNavbarTitleChange} />} />
