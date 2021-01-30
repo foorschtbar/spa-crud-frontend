@@ -9,6 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -102,11 +103,13 @@ export default function Navbar() {
                             open={open}
                             onClose={handleClose}
                         >
-                            <MenuItem onClick={handleClose}>Add member</MenuItem>
+                            <MenuItem onClick={handleClose} component={RouterLink} to="/">Home</MenuItem>
+                            <MenuItem onClick={handleClose} component={RouterLink} to="/list">All members</MenuItem>
+                            <MenuItem onClick={handleClose} component={RouterLink} to="/create">Add member</MenuItem>
                         </Menu>
                     </div>
                     <Typography variant="h6" className={classes.title}>
-                        All members { /*this.props.handler*/}
+                        SPA-CRUD Demo Application
                     </Typography>
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>

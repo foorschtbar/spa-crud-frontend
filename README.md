@@ -9,6 +9,11 @@ A demo frontend for the REST backend of [spa-crud-backend](https://github.com/fo
 
 The frontend is hosted at [GitHub Pages](https://foorschtbar.github.io/spa-crud-frontend/).
 
+## ToDo
+
+- Dialog to confirm delete
+- Add/Update to Dialog
+
 ## Usage
 
 For live edditing and developing, you could use this `docker-compose.yml` file:

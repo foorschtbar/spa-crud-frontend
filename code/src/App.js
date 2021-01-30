@@ -1,35 +1,28 @@
-import { React, Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 
-import Navbar from './Navbar';
-import Members from './Members'
+import Navbar from './components/navbar.component';
+import Create from './components/create.component';
+import Edit from './components/edit.component';
+import Index from './components/index.component';
+import List from './components/list.component';
+import View from './components/view.component';
 
 class App extends Component {
-
-  constructor(props) {
-    super(props)
-    this.handler = this.handler.bind(this)
-  }
-
-  handler() {
-    this.setState({
-      someVar: 'some value'
-    })
-  }
-
   render() {
     return (
       <Router>
         <Container>
-          <Navbar handler={this.handler} />
+          <Navbar />
+          <br />
           <Switch>
-            <Route path="/members">
-              <Members />
-            </Route>
-            <Route path="/">
-              <Members />
-            </Route>
+
+            <Route path='/list' component={List} />
+            <Route path='/view/:id' component={View} />
+            <Route exact path='/create' component={Create} />
+            <Route path='/edit/:id' component={Edit} />
+            <Route path='/' component={Index} />
           </Switch>
         </Container>
       </Router >
