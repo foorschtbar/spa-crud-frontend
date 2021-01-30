@@ -5,7 +5,6 @@ import Container from '@material-ui/core/Container';
 import Navbar from './components/navbar.component';
 import Create from './components/create.component';
 import Edit from './components/edit.component';
-import Index from './components/index.component';
 import List from './components/list.component';
 import View from './components/view.component';
 
@@ -17,12 +16,10 @@ class App extends Component {
           <Navbar />
           <br />
           <Switch>
-
-            <Route path='/list' component={List} />
             <Route path='/view/:id' component={View} />
             <Route exact path='/create' component={Create} />
             <Route path='/edit/:id' component={Edit} />
-            <Route path='/' component={Index} />
+            <Route path='/' component={List} />
           </Switch>
         </Container>
       </Router >

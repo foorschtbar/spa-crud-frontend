@@ -104,7 +104,6 @@ export default function Navbar() {
                             onClose={handleClose}
                         >
                             <MenuItem onClick={handleClose} component={RouterLink} to="/">Home</MenuItem>
-                            <MenuItem onClick={handleClose} component={RouterLink} to="/list">All members</MenuItem>
                             <MenuItem onClick={handleClose} component={RouterLink} to="/create">Add member</MenuItem>
                         </Menu>
                     </div>

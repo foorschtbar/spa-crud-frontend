@@ -23,7 +23,6 @@ export default class Create extends Component {
     }
 
     handleChange(e) {
-        console.log(e.target.id, e.target.value);
         this.setState({
             form: {
                 ...this.state.form,
@@ -44,15 +43,14 @@ export default class Create extends Component {
                     success: true
                 })
 
-                setTimeout(() => this.props.history.push('/list'), 1000);
+                setTimeout(() => this.props.history.push('/'), 1000);
 
             })
             .catch((error) => {
-
+                console.log(error.response);
                 if (error.response) {
                     // The request was made and the server responded with a status code
                     // that falls out of the range of 2xx
-                    console.log(error.response.data);
                     if (error.response.data.errors) {
                         var list = error.response.data.errors.map((error) => { return (<div>- {error}</div>); });
 
@@ -65,7 +63,6 @@ export default class Create extends Component {
                     }
                 } else {
                     // Something happened in setting up the request that triggered an Error
-                    console.log('Error', error.message);
                     this.setState({
                         error: true,
                         message: "Something failed at backend"

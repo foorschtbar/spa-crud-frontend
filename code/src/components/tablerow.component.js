@@ -16,13 +16,14 @@ class MyTableRow extends Component {
         this.delete = this.delete.bind(this);
     }
     delete(event) {
-        console.log(event);
         http.delete('/member/' + this.props.obj.id)
-            .then(
-
-                console.log('Deleted')
+            .then((response) => {
+                this.props.getData();
+                console.log('Deleted');
+            }
             )
             .catch(err => console.log(err))
+
     }
     render() {
         return (

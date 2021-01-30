@@ -20,7 +20,16 @@ export default class List extends Component {
             members: []
         };
     }
-    componentDidMount() {
+
+    simplifiedFunction(value) {
+        console.log(value);
+    }
+
+    getData = () => {
+        this.setState({
+            members: [],
+            isLoading: true
+        });
         http.get('/members')
             .then(response => {
                 this.setState({
@@ -33,10 +42,14 @@ export default class List extends Component {
                 console.log(error);
             })
     }
+
+    componentDidMount() {
+        this.getData();
+    }
     tabRow() {
-        return this.state.members.map(function (object, i) {
-            return <MyTableRow obj={object} key={i} />;
-        });
+        return this.state.members.map((obj, idx) => {
+            return <MyTableRow obj={obj} key={idx} getData={this.getData} />;
+        })
     }
 
     render() {
@@ -55,7 +68,7 @@ export default class List extends Component {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {this.tabRow()}
+                            {!this.state.isLoading && (this.state.members.length > 0 ? this.tabRow() : <TableRow><TableCell align="center" colSpan={5}>No data</TableCell></TableRow>)}
                         </TableBody>
                     </Table>
                 </TableContainer>
