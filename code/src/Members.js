@@ -6,16 +6,22 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { Button } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+//import AddIcon from '@material-ui/icons/Add';
+import IconButton from '@material-ui/core/IconButton';
+import LinearProgress from '@material-ui/core/LinearProgress';
+//import { Button, Typography } from '@material-ui/core';
 import { API_BASE_URL } from './config'
 
-class Members extends Component {
+export class Members extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             members: null,
-            isLoading: true
+            isLoading: true,
+            test: "lol"
         };
     }
 
@@ -37,43 +43,55 @@ class Members extends Component {
         }
     }
 
-
     render() {
         return (
-            <div>
-                { this.state.isLoading && <div>Loading...</div>}
-                { this.state.members && <TableContainer component={Paper} >
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>ID</TableCell>
-                                <TableCell align="right">Firstname</TableCell>
-                                <TableCell align="right">Lastname</TableCell>
-                                <TableCell align="right">Name</TableCell>
-                                <TableCell align="right">Phone</TableCell>
-                                <TableCell align="right">Email</TableCell>
-                                <TableCell align="right">Actions</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {this.state.members.map((member) => (
-                                <TableRow key={member.id}>
-                                    <TableCell component="th" scope="row">{member.id}</TableCell>
-                                    <TableCell align="right">{member.firstname}</TableCell>
-                                    <TableCell align="right">{member.lastname}</TableCell>
-                                    <TableCell align="right">{member.firstname}, {member.lastname}</TableCell>
-                                    <TableCell align="right">{member.phone}</TableCell>
-                                    <TableCell align="right">{member.email}</TableCell>
-                                    <TableCell align="right"><Button>Edit</Button></TableCell>
+            <div >
+                { /*<Typography variant="h4" gutterBottom>
+                    All Members
+        </Typography> */ }
+                { this.state.isLoading ?
+                    <LinearProgress /> :
+                    this.state.members && <TableContainer component={Paper} >
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>ID</TableCell>
+                                    <TableCell align="left">Firstname</TableCell>
+                                    <TableCell align="left">Lastname</TableCell>
+                                    <TableCell align="left">Name</TableCell>
+                                    <TableCell align="left">Phone</TableCell>
+                                    <TableCell align="left">Email</TableCell>
+                                    <TableCell align="right">Actions</TableCell>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                            </TableHead>
+                            <TableBody>
+                                {this.state.members.map((member) => (
+                                    <TableRow key={member.id}>
+                                        <TableCell component="th" scope="row">{member.id}</TableCell>
+                                        <TableCell align="left">{member.firstname}</TableCell>
+                                        <TableCell align="left">{member.lastname}</TableCell>
+                                        <TableCell align="left">{member.firstname}, {member.lastname}</TableCell>
+                                        <TableCell align="left">{member.phone}</TableCell>
+                                        <TableCell align="left">{member.email}</TableCell>
+                                        <TableCell align="right">
+                                            <IconButton aria-label="edit" color="primary">
+                                                <EditIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="delete" color="secondary">
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            { /* <Button variant="outlined" color="primary" startIcon={<EditIcon />}></Button>&nbsp;
+                                            <Button variant="outlined" color="secondary" startIcon={<DeleteIcon />}></Button> */ }
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                 }
             </div>
         );
     }
 }
 
-export default Members
+export default (Members)
