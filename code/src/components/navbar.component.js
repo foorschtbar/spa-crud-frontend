@@ -121,7 +121,7 @@ export default function Navbar(props) {
                                 input: classes.inputInput,
                             }}
                             inputProps={{ 'aria-label': 'search' }}
-                            onChange={props.handleSearch}
+                            onChange={(e) => props.handleSearch(e.target.value)}
                             value={props.search}
                         />
                     </div>

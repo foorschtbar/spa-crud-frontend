@@ -18,9 +18,9 @@ class App extends Component {
   }
 
   // Save the search field value
-  handleSearch(event) {
+  handleSearch(value) {
     this.setState({
-      search: event.target.value,
+      search: value,
     });
   }
 
@@ -53,6 +53,7 @@ class App extends Component {
               {...props} />} />
             <Route path='/' render={() => <List
               search={this.state.search}
+              handleSearch={this.handleSearch.bind(this)}
               onNavbarTitleChange={this.handleNavbarTitleChange} />} />
           </Switch>
         </Container>

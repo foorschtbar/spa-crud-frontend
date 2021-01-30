@@ -16,7 +16,7 @@ export default class Form extends Component {
         this.state = {
             message: '',
             error: false,
-            isLoading: true,
+            isLoading: false,
             disabled: false,
             url: '',
             errorfields: [],
@@ -38,14 +38,16 @@ export default class Form extends Component {
                     ...this.state,
                     button: "Update",
                     url: '/' + this.props.match.params.id,
-                    isLoading: true
+                    isLoading: true,
+                    buttonIsSubmit: true,
                 }
                 break;
             case "create":
                 this.props.onNavbarTitleChange("Create member");
                 this.state = {
                     ...this.state,
-                    button: "Create"
+                    button: "Create",
+                    buttonIsSubmit: true,
                 }
                 break;
             default:
@@ -53,10 +55,11 @@ export default class Form extends Component {
                 this.props.onNavbarTitleChange("View member");
                 this.state = {
                     ...this.state,
-                    button: false,
+                    button: "Close",
                     url: '/' + this.props.match.params.id,
                     disabled: true,
-                    isLoading: true
+                    isLoading: true,
+                    isSubmit: true
                 }
                 break;
         }
@@ -73,7 +76,7 @@ export default class Form extends Component {
 
     componentDidMount() {
         if (this.state.url !== '') {
-            http.get('/member' + this.state.url)
+            http.get('/member/' + this.props.match.params.id)
                 .then(response => {
                     this.setState({
                         form: response.data,
@@ -91,46 +94,46 @@ export default class Form extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        http.post('/member/' + this.props.match.params.id, this.state.form)
-            .then((response) => {
+        if (this.state.buttonIsSubmit) {
+            http.post('/member' + this.state.url, this.state.form)
+                .then((response) => {
 
-                console.log(response.data)
-                this.setState({
-                    error: false,
-                    message: "Done!",
-                    disabled: true
+                    console.log(response.data)
+                    this.setState({
+                        error: false,
+                        message: "Done!",
+                        disabled: true
+                    })
+
+                    setTimeout(() => this.props.history.push('/'), 1000);
+
                 })
+                .catch((error) => {
+                    if (error.response) {
+                        // The request was made and the server responded with a status code
+                        // that falls out of the range of 2xx
+                        if (error.response.data.errors) {
+                            var list = error.response.data.errors.map((error) => { return (<div>- {error}</div>); });
 
-                setTimeout(() => this.props.history.push('/'), 1000);
+                            this.setState({
+                                error: true,
+                                errorfields: (error.response.data.errorfields ? error.response.data.errorfields : []),
+                                message: list
+                            })
 
-            })
-            .catch((error) => {
-
-                if (error.response) {
-                    // The request was made and the server responded with a status code
-                    // that falls out of the range of 2xx
-                    console.log(error.response.data);
-                    if (error.response.data.errors) {
-                        var list = error.response.data.errors.map((error) => { return (<div>- {error}</div>); });
-
+                        }
+                    } else {
+                        // Something happened in setting up the request that triggered an Error
+                        console.log('Error', error.message);
                         this.setState({
                             error: true,
-                            errorfields: (error.response.data.errorfields ? error.response.data.errorfields : []),
-                            message: list
+                            message: "Something failed at backend"
                         })
-
                     }
-                } else {
-                    // Something happened in setting up the request that triggered an Error
-                    console.log('Error', error.message);
-                    this.setState({
-                        error: true,
-                        message: "Something failed at backend"
-                    })
-                }
-
-            });
-        console.log(this.state)
+                });
+        } else {
+            this.props.history.push('/')
+        }
     }
 
     render() {
@@ -228,10 +231,9 @@ export default class Form extends Component {
                                 value={this.state.form.email}
                                 type="email" onChange={this.handleChange} />
                         </Box>
-                        {this.state.button &&
-                            <Button type="submit" variant="contained" disabled={this.state.disabled || this.state.isLoading} color="primary">
-                                {this.state.button}
-                            </Button>}
+                        <Button type="submit" variant="contained" disabled={this.state.isLoading || (this.state.disabled && this.state.buttonIsSubmit)} color="primary">
+                            {this.state.button}
+                        </Button>
                     </FormControl>
                 </form>
             </div >
