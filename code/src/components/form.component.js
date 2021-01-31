@@ -139,8 +139,8 @@ export default class Form extends Component {
             <div>
                 { this.state.isLoading && <LinearProgress />}
                 { this.state.message && <><Alert severity={this.state.error ? "error" : this.state.disabled ? "success" : "info"} >{this.state.message}</Alert><br /></>}
-                <form noValidate autoComplete="off" onSubmit={this.onSubmit}>
-                    <FormControl>
+                <form noValidate autoComplete="off" onSubmit={this.onSubmit} >
+                    <FormControl fullwidth>
                         <Box margin={1}>
                             <TextField
                                 id="firstname"
@@ -224,14 +224,23 @@ export default class Form extends Component {
                                 variant="outlined"
                                 label="eMail"
                                 shrink="true"
+                                fullWidth
                                 disabled={this.state.disabled || this.state.isLoading}
                                 error={this.state.errorfields.includes('email')}
                                 value={this.state.form.email}
                                 type="email" onChange={this.handleChange} />
                         </Box>
-                        <Button type="submit" variant="contained" disabled={this.state.isLoading || (this.state.disabled && this.state.buttonIsSubmit)} color="primary">
-                            {this.state.button}
-                        </Button>
+                        <Box margin={1}>
+                            <Button
+                                fullWidth
+                                type="submit"
+                                variant="contained"
+                                disabled={this.state.isLoading || (this.state.disabled && this.state.buttonIsSubmit)}
+                                color="primary"
+                                size="large">
+                                {this.state.button}
+                            </Button>
+                        </Box>
                     </FormControl>
                 </form>
             </div >

@@ -36,7 +36,6 @@ export default class List extends Component {
             searchterm = "/" + searchterm
         }
 
-        console.log("getData", searchterm)
         http.get('/members' + searchterm)
             .then(response => {
                 this.setState({
@@ -52,7 +51,10 @@ export default class List extends Component {
     componentDidUpdate(prevProps) {
         if (prevProps.search !== this.props.search) {
             this.getData(this.props.search);
+        } else if (prevProps.listRefresh !== this.props.listRefresh) {
+            this.getData();
         }
+
     }
 
     componentDidMount() {

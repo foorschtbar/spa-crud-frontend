@@ -19,7 +19,6 @@ class MyTableRow extends Component {
         http.delete('/member/' + this.props.obj.id)
             .then((response) => {
                 this.props.getData(this.props.search);
-                console.log('Deleted');
             }
             )
             .catch(err => console.log(err))

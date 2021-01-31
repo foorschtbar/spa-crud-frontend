@@ -86,6 +86,12 @@ export default function Navbar(props) {
         handleClose();
     };
 
+    const handleCloseAddDemoEntries = () => {
+        props.handleAddDemoEntries();
+        handleClose();
+    };
+
+
     return (
         <div className={classes.root}>
             <AppBar position="static">
@@ -109,7 +115,8 @@ export default function Navbar(props) {
                             onClose={handleClose}
                         >
                             <MenuItem onClick={handleCloseClearSearch} component={RouterLink} to="/">Home</MenuItem>
-                            <MenuItem onClick={handleClose} component={RouterLink} to="/create">Add member</MenuItem>
+                            <MenuItem onClick={handleClose} component={RouterLink} to="/create">Creat new member</MenuItem>
+                            <MenuItem onClick={handleCloseAddDemoEntries} >Creat demo members</MenuItem>
                         </Menu>
                     </div>
                     <Typography variant="h6" className={classes.title}>
