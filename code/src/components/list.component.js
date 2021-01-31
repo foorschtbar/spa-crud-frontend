@@ -18,36 +18,31 @@ export default class List extends Component {
 
     constructor(props) {
         super(props);
+        this.getData = this.getData.bind(this);
         this.state = {
             isLoading: true,
-            members: [],
-            searchTerm: ""
+            members: []
         };
         this.props.onNavbarTitleChange("All members");
     }
 
-    simplifiedFunction(value) {
-        console.log(value);
-    }
-
-    getData = (search) => {
+    getData(searchterm = "") {
         this.setState({
             members: [],
-            isLoading: true
+            isLoading: true,
         });
 
-        var searchTerm = "";
-        if (this.state.searchTerm) {
-            searchTerm = "/" + this.state.searchTerm
+        if (searchterm !== "") {
+            searchterm = "/" + searchterm
         }
 
-        http.get('/members' + searchTerm)
+        console.log("getData", searchterm)
+        http.get('/members' + searchterm)
             .then(response => {
                 this.setState({
                     members: response.data,
                     isLoading: false
                 });
-                console.log(response);
             })
             .catch(function (error) {
                 console.log(error);
@@ -56,19 +51,17 @@ export default class List extends Component {
 
     componentDidUpdate(prevProps) {
         if (prevProps.search !== this.props.search) {
-            this.setState({
-                searchTerm: this.props.search
-            });
-            this.getData();
+            this.getData(this.props.search);
         }
     }
 
     componentDidMount() {
-        this.getData();
+        this.getData(this.props.search);
     }
+
     tabRow() {
         return this.state.members.map((obj, idx) => {
-            return <MyTableRow obj={obj} key={idx} getData={this.getData} />;
+            return <MyTableRow obj={obj} key={idx} search={this.props.search} getData={this.getData} />;
         })
     }
 

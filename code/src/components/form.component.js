@@ -97,8 +97,6 @@ export default class Form extends Component {
         if (this.state.buttonIsSubmit) {
             http.post('/member' + this.state.url, this.state.form)
                 .then((response) => {
-
-                    console.log(response.data)
                     this.setState({
                         error: false,
                         message: "Done!",

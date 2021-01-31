@@ -81,6 +81,11 @@ export default function Navbar(props) {
         setAnchorEl(null);
     };
 
+    const handleCloseClearSearch = () => {
+        props.handleSearch("")
+        handleClose();
+    };
+
     return (
         <div className={classes.root}>
             <AppBar position="static">
@@ -103,7 +108,7 @@ export default function Navbar(props) {
                             open={open}
                             onClose={handleClose}
                         >
-                            <MenuItem onClick={handleClose} component={RouterLink} to="/">Home</MenuItem>
+                            <MenuItem onClick={handleCloseClearSearch} component={RouterLink} to="/">Home</MenuItem>
                             <MenuItem onClick={handleClose} component={RouterLink} to="/create">Add member</MenuItem>
                         </Menu>
                     </div>

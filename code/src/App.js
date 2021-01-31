@@ -11,6 +11,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.handleNavbarTitleChange = this.handleNavbarTitleChange.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
     this.state = {
       search: "",
       navbartitle: "Main"
@@ -19,6 +20,7 @@ class App extends Component {
 
   // Save the search field value
   handleSearch(value) {
+    console.log(value)
     this.setState({
       search: value,
     });
