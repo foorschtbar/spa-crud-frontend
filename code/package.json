@@ -1,6 +1,6 @@
 {
   "name": "spa-crud-frontend",
-  "homepage": "./",
+  "homepage": "/spa-crud-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

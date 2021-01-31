@@ -9,11 +9,15 @@ A demo frontend for the REST backend of [spa-crud-backend](https://github.com/fo
 
 The demo frontend is hosted at [GitHub Pages](https://foorschtbar.github.io/spa-crud-frontend/) (works only if backend container is running).
 
+## Tip
+
+In the main menu, under _Special_ > _Bulk Import_, you will find the option to insert a few demo records into the database (uses the REST API) .
+
 ## ToDo
 
-- [Dialog](https://material-ui.com/components/dialogs/) to confirm delete
-- Move Create/Update/View-Forms to a [Dialog](https://material-ui.com/components/dialogs/)
-- Sort [Table](https://material-ui.com/components/tables/#sorting-amp-selecting)
+- Add a [dialog](https://material-ui.com/components/dialogs/) to confirm delete operations.
+- Move the Create/Update/View-Forms to a [dialog](https://material-ui.com/components/dialogs/).
+- Extend [table](https://material-ui.com/components/tables/#sorting-amp-selecting) with functions for sorting, counting, moving columns, etc.
 
 ## Usage
 

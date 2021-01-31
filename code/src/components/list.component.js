@@ -7,10 +7,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import LinearProgress from '@material-ui/core/LinearProgress';
-//import { Button, Typography } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 import MyTableRow from './tablerow.component';
-//import CustomizedDialogs from './dialog.component';
-//import Button from '@material-ui/core/Button';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import { Link as RouterLink } from 'react-router-dom';
 
 import http from "../http-common";
 
@@ -87,7 +87,13 @@ export default class List extends Component {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                {this.state.isLoading && <LinearProgress />}
+                {this.state.isLoading ? <LinearProgress /> : <div style={{ float: 'right' }}><br /><Button
+                    variant="outlined"
+                    color="primary"
+                    size="large"
+                    component={RouterLink}
+                    to="./create"
+                    startIcon={<PersonAddIcon />}>Add Member</Button></div>}
 
             </div>
         );
