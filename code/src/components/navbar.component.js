@@ -8,8 +8,18 @@ import { fade, makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import { Link as RouterLink } from 'react-router-dom';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Collapse from '@material-ui/core/Collapse';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import SettingsIcon from '@material-ui/icons/Settings';
+import GroupAddIcon from '@material-ui/icons/GroupAdd';
+import RecentActorsIcon from '@material-ui/icons/RecentActors';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -64,6 +74,9 @@ const useStyles = makeStyles((theme) => ({
             },
         },
     },
+    nested: {
+        paddingLeft: theme.spacing(4),
+    }
 }));
 
 
@@ -91,6 +104,11 @@ export default function Navbar(props) {
         handleClose();
     };
 
+    const [openCollapse, setOpenCollapse] = React.useState(false);
+
+    const handleClickCollapse = () => {
+        setOpenCollapse(!openCollapse);
+    };
 
     return (
         <div className={classes.root}>
@@ -114,9 +132,35 @@ export default function Navbar(props) {
                             open={open}
                             onClose={handleClose}
                         >
-                            <MenuItem onClick={handleCloseClearSearch} component={RouterLink} to="/">Home</MenuItem>
-                            <MenuItem onClick={handleClose} component={RouterLink} to="/create">Creat new member</MenuItem>
-                            <MenuItem onClick={handleCloseAddDemoEntries} >Creat demo members</MenuItem>
+                            <ListItem button onClick={handleCloseClearSearch} component={RouterLink} to="/">
+                                <ListItemIcon>
+                                    <RecentActorsIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="All Members" />
+                            </ListItem>
+                            <ListItem button onClick={handleClose} component={RouterLink} to="/create">
+                                <ListItemIcon>
+                                    <PersonAddIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Add Member" />
+                            </ListItem>
+                            <ListItem button onClick={handleClickCollapse}>
+                                <ListItemIcon>
+                                    <SettingsIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Special" />
+                                {openCollapse ? <ExpandLess /> : <ExpandMore />}
+                            </ListItem>
+                            <Collapse in={openCollapse} timeout="auto" unmountOnExit>
+                                <List component="div" disablePadding>
+                                    <ListItem button className={classes.nested} onClick={handleCloseAddDemoEntries}>
+                                        <ListItemIcon>
+                                            <GroupAddIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary="Bulk Import" />
+                                    </ListItem>
+                                </List>
+                            </Collapse>
                         </Menu>
                     </div>
                     <Typography variant="h6" className={classes.title}>
