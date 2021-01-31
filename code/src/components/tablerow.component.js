@@ -34,10 +34,10 @@ class MyTableRow extends Component {
                 <TableCell align="left">{this.props.obj.birthday}</TableCell>
                 <TableCell align="left">{this.props.obj.street}, {this.props.obj.city}</TableCell>
                 <TableCell align="right">
-                    <IconButton aria-label="view" component={RouterLink} to={"/view/" + this.props.obj.id}>
+                    <IconButton aria-label="view" component={RouterLink} to={process.env.PUBLIC_URL + "/view/" + this.props.obj.id}>
                         <AccountBoxIcon />
                     </IconButton>
-                    <IconButton aria-label="edit" component={RouterLink} color="primary" to={"/edit/" + this.props.obj.id}>
+                    <IconButton aria-label="edit" component={RouterLink} color="primary" to={process.env.PUBLIC_URL + "/edit/" + this.props.obj.id}>
                         <EditIcon />
                     </IconButton>
                     <IconButton aria-label="delete" color="secondary" onClick={this.delete}>

@@ -103,7 +103,7 @@ export default class Form extends Component {
                         disabled: true
                     })
 
-                    setTimeout(() => this.props.history.push('/'), 1000);
+                    setTimeout(() => this.props.history.push(process.env.PUBLIC_URL + '/'), 1000);
 
                 })
                 .catch((error) => {
@@ -130,7 +130,7 @@ export default class Form extends Component {
                     }
                 });
         } else {
-            this.props.history.push('/')
+            this.props.history.push(process.env.PUBLIC_URL + '/')
         }
     }
 
@@ -140,7 +140,7 @@ export default class Form extends Component {
                 { this.state.isLoading && <LinearProgress />}
                 { this.state.message && <><Alert severity={this.state.error ? "error" : this.state.disabled ? "success" : "info"} >{this.state.message}</Alert><br /></>}
                 <form noValidate autoComplete="off" onSubmit={this.onSubmit} >
-                    <FormControl fullwidth>
+                    <FormControl>
                         <Box margin={1}>
                             <TextField
                                 id="firstname"
@@ -224,7 +224,6 @@ export default class Form extends Component {
                                 variant="outlined"
                                 label="eMail"
                                 shrink="true"
-                                fullWidth
                                 disabled={this.state.disabled || this.state.isLoading}
                                 error={this.state.errorfields.includes('email')}
                                 value={this.state.form.email}

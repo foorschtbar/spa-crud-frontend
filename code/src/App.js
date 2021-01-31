@@ -66,19 +66,19 @@ class App extends Component {
           <br />
           {this.state.alertmsg && <><Alert severity="success">{this.state.alertmsg}</Alert><br /></>}
           <Switch>
-            <Route path='/view/:id' render={(props) => <Form
+            <Route path={`${process.env.PUBLIC_URL}/view/:id`} render={(props) => <Form
               formmode="view"
               onNavbarTitleChange={this.handleNavbarTitleChange}
               {...props} />} />
-            <Route exact path='/create' render={(props) => <Form
+            <Route exact path={`${process.env.PUBLIC_URL}/create`} render={(props) => <Form
               formmode="create"
               onNavbarTitleChange={this.handleNavbarTitleChange}
               {...props} />} />
-            <Route path='/edit/:id' render={(props) => <Form
+            <Route path={`${process.env.PUBLIC_URL}/edit/:id`} render={(props) => <Form
               formmode="edit"
               onNavbarTitleChange={this.handleNavbarTitleChange}
               {...props} />} />
-            <Route path='/' render={() => <List
+            <Route path={`${process.env.PUBLIC_URL}/`} render={() => <List
               alertmsg={this.state.alertmsg}
               search={this.state.search}
               listRefresh={this.state.listRefresh}

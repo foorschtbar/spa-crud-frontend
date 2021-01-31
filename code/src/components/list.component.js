@@ -92,7 +92,7 @@ export default class List extends Component {
                     color="primary"
                     size="large"
                     component={RouterLink}
-                    to="./create"
+                    to={`${process.env.PUBLIC_URL}/create`}
                     startIcon={<PersonAddIcon />}>Add Member</Button></div>}
 
             </div>

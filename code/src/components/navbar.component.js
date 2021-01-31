@@ -132,13 +132,13 @@ export default function Navbar(props) {
                             open={open}
                             onClose={handleClose}
                         >
-                            <ListItem button onClick={handleCloseClearSearch} component={RouterLink} to="/">
+                            <ListItem button onClick={handleCloseClearSearch} component={RouterLink} to={`${process.env.PUBLIC_URL}/`}>
                                 <ListItemIcon>
                                     <RecentActorsIcon />
                                 </ListItemIcon>
                                 <ListItemText primary="All Members" />
                             </ListItem>
-                            <ListItem button onClick={handleClose} component={RouterLink} to="/create">
+                            <ListItem button onClick={handleClose} component={RouterLink} to={`${process.env.PUBLIC_URL}/create`} >
                                 <ListItemIcon>
                                     <PersonAddIcon />
                                 </ListItemIcon>
