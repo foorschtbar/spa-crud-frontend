@@ -43,7 +43,7 @@ export default class Form extends Component {
                 }
                 break;
             case "create":
-                this.props.onNavbarTitleChange("Create Member");
+                this.props.onNavbarTitleChange("Add Member");
                 this.state = {
                     ...this.state,
                     button: "Create",
