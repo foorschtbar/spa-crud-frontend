@@ -33,7 +33,7 @@ export default class Form extends Component {
 
         switch (this.props.formmode) {
             case "edit":
-                this.props.onNavbarTitleChange("Edit member");
+                this.props.onNavbarTitleChange("Edit Member");
                 this.state = {
                     ...this.state,
                     button: "Update",
@@ -43,7 +43,7 @@ export default class Form extends Component {
                 }
                 break;
             case "create":
-                this.props.onNavbarTitleChange("Create member");
+                this.props.onNavbarTitleChange("Create Member");
                 this.state = {
                     ...this.state,
                     button: "Create",
@@ -52,7 +52,7 @@ export default class Form extends Component {
                 break;
             default:
             case "view":
-                this.props.onNavbarTitleChange("View member");
+                this.props.onNavbarTitleChange("View Member");
                 this.state = {
                     ...this.state,
                     button: "Close",

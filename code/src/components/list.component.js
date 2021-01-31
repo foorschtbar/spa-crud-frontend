@@ -23,7 +23,7 @@ export default class List extends Component {
             isLoading: true,
             members: []
         };
-        this.props.onNavbarTitleChange("All members");
+        this.props.onNavbarTitleChange("All Members");
     }
 
     getData(searchterm = "") {
